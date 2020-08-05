@@ -1,28 +1,73 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-sm-6 mx-auto">
+          <form>
+            
+            <div v-show = "step === 1" class="step">
+
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name">
+              </div>
+              
+              <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" class="form-control" id="surname">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email">
+              </div>
+
+              <button @click= "nextStep" type="button" class="btn btn-primary">Next</button>
+
+            </div>
+
+            <div v-show = "step === 2" class="step">
+
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password">
+              </div>
+              
+              <div class="form-group">
+                <label for="passwordConfirm">Password Confirm</label>
+                <input type="password" class="form-control" id="passwordConfirm">
+              </div>
+
+              <button @click= "backStep" type="button" class="btn btn-primary mr-2">Back</button>
+              <button @click= "nextStep" type="button" class="btn btn-primary">Next</button>
+
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      step: 1
+    }
+  },
+  methods: {
+    nextStep() {
+      this.step++
+    },
+    backStep() {
+      this.step--
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
