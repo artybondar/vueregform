@@ -136,11 +136,8 @@
                           :class="{ 'is-invalid': $v.formReg.passwordConfirm.$error}"
                           v-model="formReg.passwordConfirm" 
                           type="password" class="form-control" id="passwordConfirm">
-                  <div v-if= "!$v.formReg.passwordConfirm.required" class="invalid-feedback">
+                  <div v-if= "!$v.formReg.passwordConfirm.sameAs" class="invalid-feedback">
                     Please confirm password.
-                  </div>
-                  <div v-if= "!$v.formReg.passwordConfirm.minLength" class="invalid-feedback">
-                    Please enter minimum 6.
                   </div>
                 </div>
 
@@ -159,7 +156,7 @@
 </template>
 
 <script>
-import { required, minLength, email, helpers } from 'vuelidate/lib/validators'
+import { required, minLength, email, sameAs, helpers } from 'vuelidate/lib/validators'
 const alpha = helpers.regex('alpha', /^[a-zA-Zа-яёА-ЯЁ]*$/)
 
 export default {
@@ -225,8 +222,7 @@ export default {
           minLength: minLength(6)
         },
         passwordConfirm: {
-          required,
-          minLength: minLength(6)
+          sameAs: sameAs('password')
         }
     }
 
