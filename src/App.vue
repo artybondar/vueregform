@@ -16,7 +16,7 @@
                         :class="{ 'is-invalid': $v.formReg.name.$error}"
                         v-model="formReg.name" 
                         type="text" class="form-control" id="name">
-                <div v-if= "!$v.formReg.name.$required" class="invalid-feedback">
+                <div v-if= "!$v.formReg.name.required" class="invalid-feedback">
                   Please enter your Name.
                 </div>
               </div>
@@ -27,7 +27,7 @@
                         :class="{ 'is-invalid': $v.formReg.surname.$error}"
                         v-model="formReg.surname" 
                         type="text" class="form-control" id="surname">
-                <div v-if= "!$v.formReg.surname.$required" class="invalid-feedback">
+                <div v-if= "!$v.formReg.surname.required" class="invalid-feedback">
                   Please enter your Surname.
                 </div>
               </div>
@@ -35,12 +35,17 @@
               <div class="form-group">
                 <label for="email">Email</label>
                 <input @blur= "$v.formReg.email.$touch()" 
-                        :class="{ 'is-invalid': $v.formReg.email.$error}"
                         v-model="formReg.email" 
+                        :class="{ 'is-invalid': $v.formReg.email.$error}"
                         type="text" class="form-control" id="email">
-                <div v-if= "!$v.formReg.email.$required" class="invalid-feedback">
+                <div v-if= "!$v.formReg.email.required" class="invalid-feedback">
                   Please enter your email.
                 </div>
+
+                <div v-if= "!$v.formReg.email.email" class="invalid-feedback">
+                  Please enter correct your email.
+                </div>
+
               </div>
 
               <button @click= "nextStep" type="button" class="btn btn-primary">Next</button>
@@ -58,7 +63,7 @@
                           :class="{ 'is-invalid': $v.formReg.phone.$error}"
                           v-model="formReg.phone" 
                           type="tel" class="form-control" id="phone">
-                  <div v-if= "!$v.formReg.phone.$required" class="invalid-feedback">
+                  <div v-if= "!$v.formReg.phone.required" class="invalid-feedback">
                     Please enter your phone.
                   </div>
                 </div>
@@ -69,7 +74,7 @@
                           :class="{ 'is-invalid': $v.formReg.country.$error}"
                           v-model="formReg.country" 
                           type="text" class="form-control" id="country">
-                  <div v-if= "!$v.formReg.country.$required" class="invalid-feedback">
+                  <div v-if= "!$v.formReg.country.required" class="invalid-feedback">
                     Please enter your country.
                   </div>
                 </div>
@@ -80,7 +85,7 @@
                           :class="{ 'is-invalid': $v.formReg.city.$error}"
                           v-model="formReg.city" 
                           type="text" class="form-control" id="city">
-                  <div v-if= "!$v.formReg.city.$required" class="invalid-feedback">
+                  <div v-if= "!$v.formReg.city.required" class="invalid-feedback">
                     Please enter your city.
                   </div>
                 </div>
@@ -101,7 +106,7 @@
                   <input @blur= "$v.formReg.password.$touch()" 
                           :class="{ 'is-invalid': $v.formReg.password.$error}"
                           v-model="formReg.password" type="password" class="form-control" id="password">
-                  <div v-if= "!$v.formReg.password.$required" class="invalid-feedback">
+                  <div v-if= "!$v.formReg.password.required" class="invalid-feedback">
                     Please create password.
                   </div>
                 </div>
@@ -112,7 +117,7 @@
                           :class="{ 'is-invalid': $v.formReg.passwordConfirm.$error}"
                           v-model="formReg.passwordConfirm" 
                           type="password" class="form-control" id="passwordConfirm">
-                  <div v-if= "!$v.formReg.passwordConfirm.$required" class="invalid-feedback">
+                  <div v-if= "!$v.formReg.passwordConfirm.required" class="invalid-feedback">
                     Please confirm password.
                   </div>        
                 </div>
@@ -130,7 +135,7 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
+import { required, email } from 'vuelidate/lib/validators'
 
 export default {
   data() {
@@ -174,6 +179,7 @@ export default {
           required
         },
         email: {
+          email,
           required
         },
         phone: {
