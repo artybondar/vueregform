@@ -6,28 +6,44 @@
           <form @submit.prevent="regUser" novalidate>
             
             <div v-show = "step === 1" class="step">
-
               <div class="progress">
                 <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
               </div>
 
               <div class="form-group mt-5">
                 <label for="name">Name</label>
-                <input v-model="formReg.name" type="text" class="form-control" id="name">
+                <input @blur= "$v.formReg.name.$touch()" 
+                        :class="{ 'is-invalid': $v.formReg.name.$error}"
+                        v-model="formReg.name" 
+                        type="text" class="form-control" id="name">
+                <div v-if= "!$v.formReg.name.$required" class="invalid-feedback">
+                  Please enter your Name.
+                </div>
               </div>
               
               <div class="form-group">
                 <label for="surname">Surname</label>
-                <input v-model="formReg.surname" type="text" class="form-control" id="surname">
+                <input @blur= "$v.formReg.surname.$touch()" 
+                        :class="{ 'is-invalid': $v.formReg.surname.$error}"
+                        v-model="formReg.surname" 
+                        type="text" class="form-control" id="surname">
+                <div v-if= "!$v.formReg.surname.$required" class="invalid-feedback">
+                  Please enter your Surname.
+                </div>
               </div>
 
               <div class="form-group">
                 <label for="email">Email</label>
-                <input v-model="formReg.email" type="text" class="form-control" id="email">
+                <input @blur= "$v.formReg.email.$touch()" 
+                        :class="{ 'is-invalid': $v.formReg.email.$error}"
+                        v-model="formReg.email" 
+                        type="text" class="form-control" id="email">
+                <div v-if= "!$v.formReg.email.$required" class="invalid-feedback">
+                  Please enter your email.
+                </div>
               </div>
 
               <button @click= "nextStep" type="button" class="btn btn-primary">Next</button>
-
             </div>
 
             <transition name="slide-fade">
@@ -38,17 +54,35 @@
 
                 <div class="form-group mt-5">
                   <label for="phone">Phone</label>
-                  <input v-model="formReg.phone" type="tel" class="form-control" id="phone">
+                  <input @blur= "$v.formReg.phone.$touch()" 
+                          :class="{ 'is-invalid': $v.formReg.phone.$error}"
+                          v-model="formReg.phone" 
+                          type="tel" class="form-control" id="phone">
+                  <div v-if= "!$v.formReg.phone.$required" class="invalid-feedback">
+                    Please enter your phone.
+                  </div>
                 </div>
                 
                 <div class="form-group">
                   <label for="country">Country</label>
-                  <input v-model="formReg.country" type="text" class="form-control" id="country">
+                  <input @blur= "$v.formReg.country.$touch()" 
+                          :class="{ 'is-invalid': $v.formReg.country.$error}"
+                          v-model="formReg.country" 
+                          type="text" class="form-control" id="country">
+                  <div v-if= "!$v.formReg.country.$required" class="invalid-feedback">
+                    Please enter your country.
+                  </div>
                 </div>
 
                 <div class="form-group">
                   <label for="city">City</label>
-                  <input v-model="formReg.city" type="text" class="form-control" id="city">
+                  <input @blur= "$v.formReg.city.$touch()" 
+                          :class="{ 'is-invalid': $v.formReg.city.$error}"
+                          v-model="formReg.city" 
+                          type="text" class="form-control" id="city">
+                  <div v-if= "!$v.formReg.city.$required" class="invalid-feedback">
+                    Please enter your city.
+                  </div>
                 </div>
 
                 <button @click= "backStep" type="button" class="btn btn-primary mr-2">Back</button>
@@ -64,12 +98,23 @@
 
                 <div class="form-group mt-5">
                   <label for="password">Password</label>
-                  <input v-model="formReg.password" type="password" class="form-control" id="password">
+                  <input @blur= "$v.formReg.password.$touch()" 
+                          :class="{ 'is-invalid': $v.formReg.password.$error}"
+                          v-model="formReg.password" type="password" class="form-control" id="password">
+                  <div v-if= "!$v.formReg.password.$required" class="invalid-feedback">
+                    Please create password.
+                  </div>
                 </div>
                 
                 <div class="form-group">
                   <label for="passwordConfirm">Password Confirm</label>
-                  <input v-model="formReg.passwordConfirm" type="password" class="form-control" id="passwordConfirm">
+                  <input @blur= "$v.formReg.passwordConfirm.$touch()" 
+                          :class="{ 'is-invalid': $v.formReg.passwordConfirm.$error}"
+                          v-model="formReg.passwordConfirm" 
+                          type="password" class="form-control" id="passwordConfirm">
+                  <div v-if= "!$v.formReg.passwordConfirm.$required" class="invalid-feedback">
+                    Please confirm password.
+                  </div>        
                 </div>
 
                 <button @click= "backStep" type="button" class="btn btn-primary mr-2">Back</button>
@@ -85,6 +130,8 @@
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
+
 export default {
   data() {
     return {
@@ -117,6 +164,35 @@ export default {
     regUser(){
       console.log('Reg Done!')
     }
+  },
+  validations: {
+    formReg: {
+        name: {
+          required
+        },
+        surname: {
+          required
+        },
+        email: {
+          required
+        },
+        phone: {
+          required
+        },
+        country: {
+          required
+        },
+        city: {
+          required
+        },
+        password: {
+          required
+        },
+        passwordConfirm: {
+          required
+        }
+    }
+
   }
 }
 </script>
